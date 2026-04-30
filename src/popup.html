@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SensiDemo</title>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="header">
+        <div>
+          <h1>SensiDemo</h1>
+          <p id="domain">Dominio non disponibile</p>
+        </div>
+        <label class="switch" title="Attiva o disattiva il blur nella tab corrente">
+          <input id="enabledToggle" type="checkbox">
+          <span></span>
+        </label>
+      </header>
+
+      <section class="actions">
+        <button id="selectButton" class="primary" type="button">Seleziona elementi</button>
+        <button id="stopSelectButton" type="button">Stop selezione</button>
+      </section>
+
+      <p id="status" class="status" role="status"></p>
+
+      <section class="rules">
+        <div class="rules__header">
+          <h2>Regole dominio</h2>
+          <button id="clearButton" type="button">Svuota</button>
+        </div>
+        <div id="ruleList" class="rule-list"></div>
+      </section>
+    </main>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
