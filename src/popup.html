@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="it">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,28 +11,33 @@
       <header class="header">
         <div>
           <h1>SensiDemo</h1>
-          <p id="domain">Dominio non disponibile</p>
+          <p id="domain">Domain unavailable</p>
         </div>
-        <label class="switch" title="Attiva o disattiva il blur nella tab corrente">
+        <label class="switch" title="Turn blur on or off for the current tab">
           <input id="enabledToggle" type="checkbox">
           <span></span>
         </label>
       </header>
 
       <section class="actions">
-        <button id="selectButton" class="primary" type="button">Seleziona elementi</button>
-        <button id="stopSelectButton" type="button">Stop selezione</button>
+        <button id="selectButton" class="primary" type="button">Select elements</button>
+        <button id="stopSelectButton" type="button">Stop selection</button>
       </section>
 
       <p id="status" class="status" role="status"></p>
 
       <section class="rules">
         <div class="rules__header">
-          <h2>Regole dominio</h2>
-          <button id="clearButton" type="button">Svuota</button>
+          <h2>Domain rules</h2>
+          <button id="clearButton" type="button">Clear</button>
         </div>
         <div id="ruleList" class="rule-list"></div>
       </section>
+
+      <footer class="footer">
+        <span>© 2026 Pierquinto Manco</span>
+        <a href="https://github.com/Pierquinto" target="_blank" rel="noreferrer">GitHub</a>
+      </footer>
     </main>
 
     <script src="popup.js"></script>

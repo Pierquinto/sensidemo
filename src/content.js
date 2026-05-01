@@ -221,7 +221,7 @@ function startSelecting() {
   document.addEventListener("mouseout", handleMouseOut, true);
   document.addEventListener("click", handlePickClick, true);
   document.addEventListener("keydown", handleKeyDown, true);
-  showToast("SensiDemo: clicca un elemento sensibile. Premi Esc per uscire.");
+  showToast("SensiDemo: click a sensitive element. Press Esc to exit.");
 }
 
 function stopSelecting() {
@@ -256,7 +256,7 @@ function handleKeyDown(event) {
     event.preventDefault();
     event.stopPropagation();
     stopSelecting();
-    showToast("Selezione disattivata.");
+    showToast("Selection mode stopped.");
   }
 }
 
@@ -293,7 +293,7 @@ function showChoicePopover(target, x, y) {
 
   const title = document.createElement("p");
   title.className = "pb-choice__title";
-  title.textContent = "Elemento selezionato";
+  title.textContent = "Selected element";
 
   const targetLabel = document.createElement("span");
   targetLabel.className = "pb-choice__target";
@@ -305,7 +305,7 @@ function showChoicePopover(target, x, y) {
 
   const singleButton = document.createElement("button");
   singleButton.type = "button";
-  singleButton.textContent = "Solo questo tipo";
+  singleButton.textContent = "This type only";
   singleButton.addEventListener("click", () => {
     saveSingleSelection(target);
   });
@@ -316,7 +316,7 @@ function showChoicePopover(target, x, y) {
     const recursiveButton = document.createElement("button");
     recursiveButton.type = "button";
     recursiveButton.dataset.kind = "recursive";
-    recursiveButton.textContent = "Tutta la lista";
+    recursiveButton.textContent = "Whole list";
     recursiveButton.addEventListener("click", () => {
       saveRecursiveSelection(target, recursiveCandidate);
     });
@@ -325,7 +325,7 @@ function showChoicePopover(target, x, y) {
 
   const cancelButton = document.createElement("button");
   cancelButton.type = "button";
-  cancelButton.textContent = "Annulla";
+  cancelButton.textContent = "Cancel";
   cancelButton.addEventListener("click", () => {
     removeChoicePopover();
   });
@@ -344,7 +344,7 @@ function removeChoicePopover() {
 async function saveSingleSelection(target) {
   const selector = buildSelector(target);
   if (!selector) {
-    showToast("Non sono riuscito a creare un selettore stabile per questo elemento.");
+    showToast("Could not create a stable selector for this element.");
     return;
   }
 
@@ -359,19 +359,19 @@ async function saveSingleSelection(target) {
 
   stopSelecting();
   setEnabled(true);
-  showToast("Regola singola salvata e blur attivato per questa tab.");
+  showToast("Single rule saved and blur enabled for this tab.");
 }
 
 async function saveRecursiveSelection(target, candidate) {
   const targetSelector = buildRelativeSelector(target, candidate.item);
   if (!targetSelector) {
-    showToast("Non sono riuscito a creare un selettore relativo per questa lista.");
+    showToast("Could not create a relative selector for this list.");
     return;
   }
 
   await saveRule({
     id: createId(),
-    label: `${labelForElement(target)} in lista`,
+    label: `${labelForElement(target)} in list`,
     mode: "recursive",
     enabled: true,
     blurAmount: DEFAULT_BLUR_AMOUNT,
@@ -382,7 +382,7 @@ async function saveRecursiveSelection(target, candidate) {
 
   stopSelecting();
   setEnabled(true);
-  showToast("Regola lista/grid salvata e blur attivato per questa tab.");
+  showToast("List/grid rule saved and blur enabled for this tab.");
 }
 
 function getRecursiveCandidate(target) {

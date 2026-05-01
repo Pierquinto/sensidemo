@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="it">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -90,10 +90,10 @@
     <main>
       <header>
         <div>
-          <h1>Tutte le connessioni</h1>
-          <p>Pagina demo per verificare regole singole e regole lista/grid.</p>
+          <h1>All connections</h1>
+          <p>Demo page for testing single rules and list/grid rules.</p>
         </div>
-        <button id="addCard" type="button">Aggiungi contatto</button>
+        <button id="addCard" type="button">Add contact</button>
       </header>
 
       <section class="grid" data-testid="connections-grid">
@@ -117,8 +117,8 @@
 
     <script>
       const grid = document.querySelector("[data-testid='connections-grid']");
-      const names = ["Manuel Ragusa", "Francesco Foffa", "Veronica Ragatzù", "Marco Bonizzi"];
-      const roles = ["Software Engineer", "VP B2B expert", "Business Development Representative", "Senior Product Manager"];
+      const names = ["Maya Carter", "Noah Bennett", "Ava Mitchell", "Leo Foster"];
+      const roles = ["Software Engineer", "B2B Growth Lead", "Business Development Representative", "Senior Product Manager"];
       let index = 0;
 
       document.getElementById("addCard").addEventListener("click", () => {

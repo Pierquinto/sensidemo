@@ -50,7 +50,7 @@ Rules are stored under the `sensiDemoDomains` key:
 
 ## Selection flow
 
-1. User clicks `Seleziona elementi`.
+1. User clicks `Select elements`.
 2. Content script enters selection mode and highlights hovered elements.
 3. User clicks an element.
 4. Content script offers a single rule or recursive list/grid rule.

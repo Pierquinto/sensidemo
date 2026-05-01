@@ -43,16 +43,16 @@ After changing extension files, reload the extension from `chrome://extensions` 
 1. Open the website you want to record.
 2. Open the SensiDemo extension popup.
 3. Turn the tab toggle ON.
-4. Click `Seleziona elementi`.
+4. Click `Select elements`.
 5. Click a sensitive element on the page.
 6. Choose:
-   - `Solo questo tipo` for a single selector rule.
-   - `Tutta la lista` for a recursive list/grid rule.
+   - `This type only` for a single selector rule.
+   - `Whole list` for a recursive list/grid rule.
 7. Adjust each rule with the `Blur 1/10` to `Blur 10/10` slider.
 
 ## Local demo
 
-Open `demo/index.html` in Chrome and create recursive rules for avatar, name, and role. Use the `Aggiungi contatto` button to add new cards and verify that dynamic content is blurred automatically.
+Open `demo/index.html` in Chrome and create recursive rules for avatar, name, and role. Use the `Add contact` button to add new cards and verify that dynamic content is blurred automatically.
 
 For local `file://` demos, Chrome may require enabling `Allow access to file URLs` in the extension details page.
 

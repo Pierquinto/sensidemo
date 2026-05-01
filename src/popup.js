@@ -19,7 +19,7 @@ init();
 async function init() {
   [currentTab] = await chrome.tabs.query({ active: true, currentWindow: true });
   currentHostname = hostnameFromUrl(currentTab?.url);
-  domainEl.textContent = currentHostname || "Pagina non supportata";
+  domainEl.textContent = currentHostname || "Unsupported page";
 
   if (!currentTab?.id || !currentHostname) {
     setDisabled(true);
@@ -59,7 +59,7 @@ async function ensureContentReady() {
         files: ["src/content.css"]
       });
     } catch (error) {
-      throw new Error(`Non posso attivarmi su questa pagina. Dettaglio: ${error.message}`);
+      throw new Error(`SensiDemo cannot run on this page. Detail: ${error.message}`);
     }
   }
 }
@@ -81,7 +81,7 @@ function renderRules(rules) {
   if (!rules.length) {
     const empty = document.createElement("div");
     empty.className = "empty";
-    empty.textContent = "Nessuna regola salvata per questo dominio.";
+    empty.textContent = "No rules saved for this domain.";
     ruleList.append(empty);
     return;
   }
@@ -93,7 +93,7 @@ function renderRules(rules) {
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.checked = rule.enabled !== false;
-    checkbox.title = "Abilita regola";
+    checkbox.title = "Enable rule";
     checkbox.addEventListener("change", async () => {
       await updateRule(rule.id, { enabled: checkbox.checked });
     });
@@ -101,11 +101,11 @@ function renderRules(rules) {
     const body = document.createElement("div");
     const kind = document.createElement("div");
     kind.className = "rule__kind";
-    kind.textContent = rule.mode === "recursive" ? "Lista/Grid" : "Singolo";
+    kind.textContent = rule.mode === "recursive" ? "List/Grid" : "Single";
 
     const name = document.createElement("div");
     name.className = "rule__name";
-    name.textContent = rule.label || "Elemento sensibile";
+    name.textContent = rule.label || "Sensitive element";
 
     const meta = document.createElement("div");
     meta.className = "rule__meta";
@@ -130,7 +130,7 @@ function renderRules(rules) {
     });
     blurRange.addEventListener("change", async () => {
       await updateRule(rule.id, { blurAmount: normalizeBlurAmount(blurRange.value) }, { clearExisting: false });
-      showStatus(`Blur aggiornato a ${blurRange.value}/10.`);
+      showStatus(`Blur updated to ${blurRange.value}/10.`);
     });
 
     blurControl.append(blurText, blurRange);
@@ -138,7 +138,7 @@ function renderRules(rules) {
     const removeButton = document.createElement("button");
     removeButton.type = "button";
     removeButton.textContent = "x";
-    removeButton.title = "Rimuovi regola";
+    removeButton.title = "Remove rule";
     removeButton.addEventListener("click", async () => {
       await removeRule(rule.id);
     });
@@ -152,10 +152,10 @@ function renderRules(rules) {
 function describeRule(rule) {
   if (rule.mode === "recursive") {
     const targetCount = rule.targetSelectors?.length || 0;
-    return `${targetCount} target in ${rule.itemSelector || "item"} dentro ${rule.containerSelector || "container"}`;
+    return `${targetCount} target${targetCount === 1 ? "" : "s"} in ${rule.itemSelector || "item"} inside ${rule.containerSelector || "container"}`;
   }
 
-  return rule.selector || "Selettore non disponibile";
+  return rule.selector || "Selector unavailable";
 }
 
 function normalizeBlurAmount(amount) {
@@ -222,7 +222,7 @@ enabledToggle.addEventListener("change", async () => {
   try {
     await chrome.runtime.sendMessage({ type: "SET_TAB_STATE", tabId: currentTab.id, enabled });
     await chrome.tabs.sendMessage(currentTab.id, { type: "SET_ENABLED", enabled });
-    showStatus(enabled ? "Blur attivo in questa tab." : "Blur disattivato in questa tab.");
+    showStatus(enabled ? "Blur is active in this tab." : "Blur is off in this tab.");
   } catch (error) {
     enabledToggle.checked = !enabled;
     showStatus(errorMessage(error), true);
@@ -236,7 +236,7 @@ selectButton.addEventListener("click", async () => {
     enabledToggle.checked = true;
     await chrome.runtime.sendMessage({ type: "SET_TAB_STATE", tabId: currentTab.id, enabled: true });
     await chrome.tabs.sendMessage(currentTab.id, { type: "START_SELECTING" });
-    showStatus("Selezione attiva: clicca un dato sensibile nella pagina. Se puoi, scegli 'Tutta la lista'.");
+    showStatus("Selection mode is active: click sensitive data on the page. Choose 'Whole list' when available.");
   } catch (error) {
     showStatus(errorMessage(error), true);
   }
@@ -246,7 +246,7 @@ stopSelectButton.addEventListener("click", async () => {
   if (!currentTab?.id) return;
   try {
     await chrome.tabs.sendMessage(currentTab.id, { type: "STOP_SELECTING" });
-    showStatus("Selezione disattivata.");
+    showStatus("Selection mode stopped.");
   } catch (error) {
     showStatus(errorMessage(error), true);
   }
@@ -289,10 +289,10 @@ function showStatus(message, isError = false) {
 function errorMessage(error) {
   const message = error?.message || String(error);
   if (message.includes("Cannot access") || message.includes("chrome://")) {
-    return "Chrome non consente estensioni su questa pagina. Prova su un sito http/https.";
+    return "Chrome does not allow extensions on this page. Try an http/https website.";
   }
   if (message.includes("file://")) {
-    return "Per usare la demo locale abilita 'Allow access to file URLs' nei dettagli dell'estensione, oppure prova su un sito http/https.";
+    return "To use the local demo, enable 'Allow access to file URLs' in the extension details, or try an http/https website.";
   }
   return message;
 }
